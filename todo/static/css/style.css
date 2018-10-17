@@ -1,0 +1,101 @@
+.search_query_div
+{
+margin: 0 auto !important;
+padding-bottom:0%;
+padding-top:4%;
+max-width:80%;
+padding-left:4%;
+padding-right:4%;
+}
+
+.delete_task_div
+{
+color:red;
+
+}
+
+
+.bin_div_class_title
+{
+margin:10px !important;
+
+}
+
+.drop_down_class{
+
+padding:5px;
+}
+
+.add_bin_div
+{
+	
+margin-left: 6% !important;
+}
+
+
+.filter_div_class
+{
+margin-top:3%;
+background-color: #eaecec;
+border: 3px solid #eaecec;
+ border-radius: 5px;
+ font-weight: bold;
+}
+
+#changes {
+    background-color: #eaecec;
+    position: relative;
+    height: auto;
+    border: 2px solid #eaecec;
+    border-radius: 5px;
+    margin-top: -30px;
+    padding: 1% 1%;
+}
+
+.rectangle_box{
+
+	position:relative;
+	margin-top: 20px;
+}
+
+#Completed
+{
+	  font-weight: bold;
+	  color: green;
+}
+#Pending
+{
+
+font-weight: bold;
+	  color: red;
+}
+#Delete
+{
+
+font-weight: bold;
+	  color: red;
+}
+
+#Filter
+{
+	position:relative;
+	top:7px;
+}
+
+#button1
+{
+height:40px;
+
+}
+
+#button1:hover
+{
+
+	background-color: #c1bfbf;
+}
+
+#addTask:hover
+{
+background-color: #c1bfbf;
+}
+

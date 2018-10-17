@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--- Header of html page --->
+
+    <title>TODO Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+<!---- Search Query Division --->
+<div class="container">
+<div class="search_query_div">
+
+    <form method="post" action="search" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row form-group ">
+
+            <div class="col-md-10 col-xs-12">
+
+                <input type="text" class="form-control input_class" id="search_task" autocomplete="off"
+                       name="search_task" placeholder="Search Title" required>
+
+                <br>
+            </div>
+            <div class="col-md-2 col-xs-12">
+            <button type="submit" id="button1" class="btn  submit_button_class">Seach Task</button>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+</div>
+
+<!---- Bin Task List Division --->
+<div class="container">
+<div class="row add_bin_div">
+
+    <div class="col-md-9 add_task_div_class">
+        <button id="addTask" class="btn add_task_button_class" onclick="show_add_task_div();return false"> Add Task
+        </button>
+
+        <div class="add_task_form_div">
+            <br>
+
+            <form action="/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{forms}}
+                <br>
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!----Drop DOwn Column --->
+
+    <div class="col-md-3">
+        <div class="dropdown drop_down_class">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                Task BIN
+            </button>
+            <div class="dropdown-menu">
+                {% for task in bintask %}
+                <div class="bin_div_class_title">:- {{task.soft_task_title}}</div>
+
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+<!---- Filter Division --->
+
+<div class="container filter_div_class">
+
+    <ul class="nav">
+        </br>
+
+        <li id="Filter">Filter</li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="filter=today">Today</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="filter=week">Week</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="filter=overdue">Overdue</a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!---- All Task in Rows --->
+
+<div class="container">
+<div class="task_list_div_class" style="margin:5% 2%;">
+
+    {% for task in task_list %}
+
+    <div class="row" id="changes">
+
+        <div class="col-sm-2 rectangle_box">{{task.title}}</div>
+        <div class="col-sm-2 rectangle_box">{{task.description}}</div>
+        <div class="col-sm-2 rectangle_box">{{task.duedate}}</div>
+
+        {% if task.status %}
+        <div class="col-sm-2 rectangle_box">
+            <a id="Completed" href=""> Completed</a>
+        </div>
+        {% else %}
+
+        <div class="col-sm-2 rectangle_box">
+            <a id="Pending" href="change_status/{{task.task_id}}"> Pending</a>
+
+        </div>
+
+        {% endif %}
+
+        <div class="col-sm-2 rectangle_box">
+            <button id="{{task.task_id}}" onclick="show_sub_task_div(this.id)">Create Subtask</button>
+
+        </div>
+
+        <div class="delete_task_div rectangle_box">
+            <a id="Delete" href="delete/{{task.task_id}}">DELETE</a>
+
+        </div>
+    </div>
+
+
+    <!---- SubTask Form --->
+
+    <div id="d{{task.task_id}}" class="subtask_div">
+
+        <form action="subtask/{{task.task_id}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{forms}}
+            <br>
+
+            <button type="submit">Add SubTask</button>
+        </form>
+
+
+    </div>
+    <br>
+    <br>
+    {% endfor %}
+
+
+</div>
+</div>
+<!---- Script For Hiding And Showing Task ADD Forms --->
+
+<script>
+
+    function show_add_task_div()
+    {
+     $(".add_task_form_div").show();
+    }
+
+
+     function hide_add_task_div()
+    {
+     $(".add_task_form_div").hide();
+
+    }
+
+        function show_sub_task_div(id)
+    {
+    fin = "#d"+id
+     $(fin).show();
+    }
+
+
+     function hide_sub_task_div()
+    {
+     $(".subtask_div").hide();
+
+    }
+
+
+      $(document).ready(function()
+      {
+			 $(".add_task_form_div").hide();
+			  $(".subtask_div").hide();
+
+			});
+
+
+</script>
+
+</body>
+</html>
+
+<!---- End Of Html Tag --->
